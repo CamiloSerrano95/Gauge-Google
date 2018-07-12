@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="medidor">
+
+    </div>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['gauge'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            var data = google.visualization.arrayToDataTable([
+                ['Label', 'Value'],
+                ['Result', 80]
+            ]);
+
+            var options = {
+                width: 400, height: 400,
+                redFrom: 0, redTo: 50,
+                greenFrom:50, greenTo:70,
+                yellowFrom: 70, yellowTo: 100,
+                minorTicks: 5
+            };
+
+            var chart = new google.visualization.Gauge(document.getElementById('medidor'));
+
+            chart.draw(data, options);
+
+            setInterval(function () {
+                data.setValue(0, 1, 40 + Math.round(60 * Math.random()));
+                chart.draw(data, options);
+            }, 1300);
+        }
+    </script>
+</body>
+
+</html>
